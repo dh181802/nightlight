@@ -28,9 +28,14 @@ void loop() {
   
   // Convert the analog reading (0 - 1023) to a voltage (0 - 5V):
   float voltage = sensorValue * (5.0 / 1023.0);
-  //the dimmer variable to be fed into the PWM pin
-  float dimmer = voltage * 25;
-  
+  //the dimmer variable to be fed into the PWM pin - not sure if voltage * 51 is the best value
+  float dimmer = voltage * 51;
+
+  //if the voltage is above the dark threshold the builtin LED and the LED on pin 5 are switched on.
+  //boolean isDark is set to true
+  //current time is taken and the previousMillis value is substracted.
+  //to give the accurate time for each on/off state previousMillis is set to currentMillis
+  //to get seconds timePassed is divided by 1000
   if (voltage > darkThreshold && isDark == false) {
       digitalWrite(LED_BUILTIN, HIGH);
       analogWrite(ledPin, dimmer);
