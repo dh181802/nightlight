@@ -4,7 +4,7 @@ const int sensorPin = A0;
 const float darkThreshold = 1.90;
 const float lightTreshold = 1.80;
 
-//boolean 
+//boolean for switching
 bool isDark = false;
 
 //global variables to store millis for the calculation of the LED on and LED off time
@@ -48,18 +48,16 @@ void loop() {
   //boolean isDark is set to true
   //the function switchState is called for the calculation of the on/off time
   if (voltage > darkThreshold && isDark == false) {
+    switchState();
     digitalWrite(LED_BUILTIN, HIGH);
     analogWrite(ledPin, dimmer);
-  //isDark = true;
-    switchState();
     toPrint = "dark, seconds it was light: ";
     Serial.println(toPrint + timePassed);
       
   } else if (voltage < lightTreshold && isDark == true) {
+    switchState();
     digitalWrite(LED_BUILTIN, LOW);
     analogWrite(ledPin, LOW);
-  //isDark = false;
-    switchState();
     toPrint = "light, seconds it was dark: ";
     Serial.println(toPrint + timePassed);
   }
